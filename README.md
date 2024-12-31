@@ -1,66 +1,65 @@
-## Foundry
+# NFT Staking DApp
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+A decentralized application (DApp) that allows users to stake NFTs and earn ERC20 token rewards.
 
-Foundry consists of:
+## Overview
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+This project implements an NFT staking system with the following key components:
 
-## Documentation
+- `NFTCollection.sol`: An ERC721 NFT collection contract that allows minting of NFTs
+- `ERC20Token.sol`: A reward token contract that implements the ERC20 standard
+- `StakingRewards.sol`: The main staking contract that handles NFT deposits and reward distribution
 
-https://book.getfoundry.sh/
+## Core Features
 
-## Usage
+### NFT Collection
+- Mint NFTs by paying ETH
+- Configurable max supply
+- Withdrawable mint proceeds by owner
+- Base URI for token metadata
 
-### Build
+### Reward Token
+- Custom ERC20 token for staking rewards
+- Minting restricted to staking contract
+- Burn functionality for token holders
 
-```shell
-$ forge build
-```
+### Staking System
+- Stake NFTs to earn rewards
+- Reward rate of 80% per day
+- Claim rewards without unstaking
+- Withdraw NFTs and claim pending rewards
+- Owner can set reward token address
 
-### Test
+## Contract Interactions
 
-```shell
-$ forge test
-```
+1. Users mint NFTs from the NFTCollection contract
+2. Users approve the StakingRewards contract to transfer their NFTs
+3. Users stake NFTs to start earning rewards
+4. Users can:
+   - Claim rewards while keeping NFTs staked
+   - Withdraw NFTs and claim accumulated rewards
 
-### Format
+## Technical Details
 
-```shell
-$ forge fmt
-```
+- Solidity version: 0.8.28
+- Built with OpenZeppelin contracts
+- Uses safe transfer mechanisms for NFTs
+- Implements IERC721Receiver for safe NFT handling
 
-### Gas Snapshots
+## Security Features
 
-```shell
-$ forge snapshot
-```
+- Ownership checks for NFT operations
+- Access control for admin functions
+- Safe math operations
+- Reentrancy protection via OpenZeppelin
 
-### Anvil
+## Setup and Deployment
 
-```shell
-$ anvil
-```
+1. Deploy NFTCollection contract
+2. Deploy StakingRewards contract with NFTCollection address
+3. Deploy ERC20Token contract with StakingRewards address
+4. Call setRewardToken on StakingRewards with ERC20Token address
 
-### Deploy
+## License
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+This project is licensed under the MIT License.
